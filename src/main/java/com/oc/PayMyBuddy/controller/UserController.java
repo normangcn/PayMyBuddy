@@ -1,8 +1,15 @@
 package com.oc.PayMyBuddy.controller;
 
+import com.oc.PayMyBuddy.model.User;
+import com.oc.PayMyBuddy.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+
+    @Autowired
     private final UserService service;
 
     public UserController(UserService service) {
@@ -27,7 +34,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseUser<Void> deleteUser(@PathVariable int id) {
+    public ResponseUser<User> deleteUser(@PathVariable int id) {
         service.deleteUser(id);
         return ResponseUser.noContent().build();
     }
