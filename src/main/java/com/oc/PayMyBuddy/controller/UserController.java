@@ -2,40 +2,36 @@ package com.oc.PayMyBuddy.controller;
 
 import com.oc.PayMyBuddy.model.User;
 import com.oc.PayMyBuddy.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
 
-    @Autowired
     private final UserService service;
-
     public UserController(UserService service) {
         this.service = service;
     }
 
     @GetMapping
     public List<User> getAllUsers() {
-        return UserService.getAllUsers();
+        return service.getAllUsers();
     }
 
     @PostMapping
     public User createEntity(@RequestBody User user) {
-        return service.saveUser(user);
+        return service.addUser(user);
     }
-
+    //Double check Lambda code and methods call in the code below
     @GetMapping("/{id}")
-    public ResponseUser<User> getUserById(@PathVariable int id) {
-        return service.getUserById(id)
-                .map(ResponseUser::ok)
-                .orElse(ResponseUser.notFound().build());
+    public User getUserById(@PathVariable int id) {
+        return service.getUserByID(id);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseUser<User> deleteUser(@PathVariable int id) {
-        service.deleteUser(id);
-        return ResponseUser.noContent().build();
+    public void deleteUser(@PathVariable int id) {
+       service.deleteUser(id);
     }
 }
