@@ -24,7 +24,7 @@ public class UserController {
     public User createEntity(@RequestBody User user) {
         return service.addUser(user);
     }
-    //Double check Lambda code and methods call in the code below
+
     @GetMapping("/{id}")
     public User getUserById(@PathVariable int id) {
         return service.getUserByID(id);
