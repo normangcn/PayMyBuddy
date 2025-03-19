@@ -1,7 +1,10 @@
 package com.oc.PayMyBuddy.controller;
 
+import com.oc.PayMyBuddy.DTOs.UserInDTO;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -16,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         }
         @GetMapping("/user/registration")
         public String showRegistrationForm(WebRequest request, Model model) {
-            UserInDto userInDto = new UserInDto();
+            UserInDTO userInDto = new UserInDTO();
             model.addAttribute("user", userInDto);
             return "registration";
         }
