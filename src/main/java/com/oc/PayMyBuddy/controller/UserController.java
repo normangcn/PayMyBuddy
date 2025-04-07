@@ -3,6 +3,7 @@ package com.oc.PayMyBuddy.controller;
 import com.oc.PayMyBuddy.model.User;
 import com.oc.PayMyBuddy.service.UserService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ public class UserController {
     public List<User> getAllUsers() {
         return service.getAllUsers();
     }
+
+
 
     @PostMapping
     public User createEntity(@RequestBody User user) {
