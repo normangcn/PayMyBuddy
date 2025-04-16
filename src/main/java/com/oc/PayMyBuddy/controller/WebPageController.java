@@ -31,7 +31,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         public ModelAndView registerUserAccount(@ModelAttribute("user") @Valid UserInDTO userInDTO,
                                                 HttpServletRequest request, Errors errors)
         {
-            return null; //TODO Test function and implement correct return
+            ModelAndView modelAndView = new ModelAndView("view/viewRegistrationPage");
+            modelAndView.addObject("testMessage", "TestMessage");
+            return modelAndView; //TODO Test function and implement correct return and Object
         }
 
     }

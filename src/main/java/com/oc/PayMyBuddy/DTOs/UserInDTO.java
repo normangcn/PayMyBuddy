@@ -1,5 +1,7 @@
 package com.oc.PayMyBuddy.DTOs;
 
+import com.oc.PayMyBuddy.utils.PasswordMatches;
+import com.oc.PayMyBuddy.utils.ValidEmail;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -7,6 +9,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
+@PasswordMatches
 public class UserInDTO {
         @NotNull
         @NotEmpty
@@ -25,6 +28,7 @@ public class UserInDTO {
         private String password;
         private String matchingPassword;
 
+        @ValidEmail
         @NotNull
         @NotEmpty
         private String email;
