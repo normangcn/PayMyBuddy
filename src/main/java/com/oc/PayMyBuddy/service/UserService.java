@@ -1,15 +1,19 @@
 package com.oc.PayMyBuddy.service;
 
+import com.oc.PayMyBuddy.DTOs.UserInDTO;
 import com.oc.PayMyBuddy.model.User;
 import com.oc.PayMyBuddy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService {
+@Transactional
+public class UserService implements IUserService {
+    @Autowired
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -33,5 +37,17 @@ public class UserService {
     }
     public void deleteUser(int id) {
         userRepository.deleteById(id);
+    }
+    @Override
+    public User registerNewUserAccount(UserInDTO userDto) throws UserAlreadyExistException {
+        if (emailExists(userDto.getEmail())) {
+            throw new UserAlreadyExistException("There is an account with that email address: "
+                    + userDto.getEmail());
+        }
+
+        // the rest of the registration operation
+    }
+    private boolean emailExists(String email) {
+        return userRepository.findByEmail(email) != null;
     }
 }
