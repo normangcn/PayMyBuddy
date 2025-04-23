@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 @Transactional
 public class UserService implements IUserService {
+
     @Autowired
     private final UserRepository userRepository;
 
@@ -25,29 +27,42 @@ public class UserService implements IUserService {
         userRepository.findAll().forEach(users::add);
         return users;
     }
+
     public User getUserByID(int id) {
         userRepository.findById(id);
         return userRepository.findById(id).get();
     }
-    public User addUser (User user) {
+
+    public User addUser(User user) {
         return userRepository.save(user);
     }
+
     public void updateUser(User user) {
         userRepository.save(user);
     }
+
     public void deleteUser(int id) {
         userRepository.deleteById(id);
     }
+
     @Override
-    public User registerNewUserAccount(UserInDTO userDto) throws UserAlreadyExistException {
+    public User registerNewUserAccount(UserInDTO userDto) throws AlreadyExistsException {
         if (emailExists(userDto.getEmail())) {
             throw new UserAlreadyExistException("There is an account with that email address: "
                     + userDto.getEmail());
         }
 
-        // the rest of the registration operation
+        User user = new User();
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setPassword(userDto.getPassword());
+        user.setEmail(userDto.getEmail());
+        user.setRoles(Arrays.asList("ROLE_USER"));
+
+        return repository.save(user);
     }
-    private boolean emailExists(String email) {
-        return userRepository.findByEmail(email) != null;
-    }
+
+private boolean emailExists(String email) {
+    return userRepository.findByEmail(email) != null;
 }
+ }
