@@ -1,6 +1,6 @@
 package com.oc.PayMyBuddy.controller;
 
-import com.oc.PayMyBuddy.DTOs.UserInDTO;
+import com.oc.PayMyBuddy.dto.UserInDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.context.annotation.Configuration;

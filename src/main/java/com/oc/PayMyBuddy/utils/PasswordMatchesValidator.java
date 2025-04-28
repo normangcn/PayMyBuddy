@@ -1,6 +1,6 @@
 package com.oc.PayMyBuddy.utils;
 
-import com.oc.PayMyBuddy.DTOs.UserInDTO;
+import com.oc.PayMyBuddy.dto.UserInDTO;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

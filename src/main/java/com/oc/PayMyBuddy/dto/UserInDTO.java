@@ -1,4 +1,4 @@
-package com.oc.PayMyBuddy.DTOs;
+package com.oc.PayMyBuddy.dto;
 
 import com.oc.PayMyBuddy.utils.PasswordMatches;
 import com.oc.PayMyBuddy.utils.ValidEmail;

@@ -5,4 +5,4 @@
  * @author gareth
  *
  */
-package com.oc.PayMyBuddy.DTOs;
+package com.oc.PayMyBuddy.dto;

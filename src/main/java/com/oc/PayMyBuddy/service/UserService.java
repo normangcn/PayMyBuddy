@@ -1,6 +1,7 @@
 package com.oc.PayMyBuddy.service;
 
-import com.oc.PayMyBuddy.DTOs.UserInDTO;
+import com.oc.PayMyBuddy.dto.UserInDTO;
+import com.oc.PayMyBuddy.exception.UserAlreadyExistException;
 import com.oc.PayMyBuddy.model.User;
 import com.oc.PayMyBuddy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User registerNewUserAccount(UserInDTO userDto) throws AlreadyExistsException {
+    public User registerNewUserAccount(UserInDTO userDto) throws UserAlreadyExistException {
         if (emailExists(userDto.getEmail())) {
             throw new UserAlreadyExistException("There is an account with that email address: "
                     + userDto.getEmail());
