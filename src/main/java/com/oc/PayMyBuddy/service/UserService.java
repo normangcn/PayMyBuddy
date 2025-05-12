@@ -2,24 +2,25 @@ package com.oc.PayMyBuddy.service;
 
 import com.oc.PayMyBuddy.dto.UserInDTO;
 import com.oc.PayMyBuddy.exception.UserAlreadyExistException;
+import com.oc.PayMyBuddy.model.Authority;
 import com.oc.PayMyBuddy.model.User;
+import com.oc.PayMyBuddy.repository.AuthorityRepository;
 import com.oc.PayMyBuddy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
 public class UserService implements IUserService {
 
-    @Autowired
+    private final AuthorityRepository authorityRepository;
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(AuthorityRepository authorityRepository, UserRepository userRepository) {
+        this.authorityRepository = authorityRepository;
         this.userRepository = userRepository;
     }
 
@@ -52,15 +53,15 @@ public class UserService implements IUserService {
             throw new UserAlreadyExistException("There is an account with that email address: "
                     + userDto.getEmail());
         }
-
+        Set<Authority> authorities = new HashSet<>();
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setPassword(userDto.getPassword());
         user.setEmail(userDto.getEmail());
-        user.setRoles(Arrays.asList("ROLE_USER"));
+        user.setAuthorities(authorities);
 
-        return repository.save(user);
+        return userRepository.save(user);
     }
 
 private boolean emailExists(String email) {
